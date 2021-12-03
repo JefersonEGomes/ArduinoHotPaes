@@ -1,5 +1,6 @@
 /*
 FACULDADE SENAC PE
+<<<<<<< HEAD
 
 Projeto Hot Pães
 Autores: Equipe Hot Pães
@@ -10,6 +11,14 @@ Hardware
 NODEMCU ESP8266
 Sensor Temperatura e Umidade - DHT 22 ou DHT11
 
+=======
+Projeto Hot Pães
+Autores: Equipe Hot Pães
+Envio de medida ( temperatura ) para APIs HTTP
+Hardware
+NODEMCU ESP8266
+Sensor Temperatura e Umidade - DHT 22 ou DHT11
+>>>>>>> api
 */
 #include <ESP8266WiFi.h> /* bilblioteca adequada para wifi esp8266 */
 #include<ESP8266WebServer.h> /* Biblioteca para o ESP funcionar como servidor */
@@ -21,6 +30,10 @@ Sensor Temperatura e Umidade - DHT 22 ou DHT11
 #define DHTPIN 4 // pino D2 do nodemcu
 #define DHTTYPE DHT11 // especificacao do modelo de sensor DHT
 #define http_appjef "http://jefersonegomes.pythonanywhere.com/data_transfer"
+<<<<<<< HEAD
+=======
+#define http_appflavia "http://flaviab.pythonanywhere.com/data_temp";
+>>>>>>> api
 #define IDMODULO "ID01-Jef" // definição da identificação do modulo de leitura e placa
 #define KEYAPI "1A2b3C4E5f" // definição da chave de segurança - deve ser criptografada e sofrer mudanças temp
 orárias
@@ -100,6 +113,10 @@ frase_stat = "Estou esfriando";
 }
 
 env_Dados( temperatura, status_mudanca, http_appjef, IDMODULO, KEYAPI );
+<<<<<<< HEAD
+=======
+env_Dados( temperatura, status_mudanca, http_appflavia, IDMODULO, KEYAPI );
+>>>>>>> api
 }
 }
 }
@@ -118,6 +135,7 @@ frase_stat = "Vem buscar seu pao quentinho";
 } else {
 frase_stat = "Espere a proxima fornada";
 }
+<<<<<<< HEAD
 server.send(200, "text/html", EnvioHTML(temp_atual, umidade, frase_stat)); //Envia as informações usando o códi
 go 200, especifica o conteúdo como "text/html" e chama a função EnvioHTML
 }
@@ -161,6 +179,8 @@ ptr += "</body>\n";
 ptr += "</html>\n";
 return ptr;
 }
+=======
+>>>>>>> api
 /*
 Função para preparar e realização uma requisição HTTP com informações de
 temperatura
@@ -168,10 +188,18 @@ Http da api
 identificação do sensor
 chave do modulo para testar segurança
 */
+<<<<<<< HEAD
 void env_Dados ( float temperatura, int stat_mudancas, char *http_api , char *id_api, char*chave_modulo) {
 String endpoint;
 char medida[10];
 char stat[5];
+=======
+void env_Dados ( float temp_atual, int umidade, String frase_stat, char *http_api , char *id_api, char*chave_modulo) {
+String endpoint;
+char medida[10];
+char umidade_pao[10];
+String frase = frase_stat;
+>>>>>>> api
 HTTPClient http; // Declarar um objeto da classe HTTPClient
 WiFiClient wifiClient;
 Serial.println( http_api );
@@ -179,7 +207,11 @@ http.begin( wifiClient , http_api ); // Especificando o endereço da requisiçã
 http.addHeader("Content-Type", "application/x-www-form-urlencoded");
 http.addHeader("Authorization-Token", api_header_key );
 sprintf( medida, "%03d", (int)temperatura ); // Transforma numero em string (sprintf)
+<<<<<<< HEAD
 sprintf( stat, "%02d", (int)stat_mudancas );
+=======
+sprintf( umidade_pao, "%02d", (int)umidade );
+>>>>>>> api
 endpoint = "api_key=";
 endpoint += chave_modulo;
 endpoint += "&id=";
@@ -188,9 +220,16 @@ endpoint += "&chave=";
 endpoint += chave_modulo;
 endpoint += "&medida=";
 endpoint += medida;
+<<<<<<< HEAD
 
 endpoint += "&status=";
 endpoint += stat;
+=======
+endpoint += "&umidade_pao=";
+endpoint += umidade_pao;
+endpoint += "&frase=";
+endpoint += frase;
+>>>>>>> api
 int httpCode = http.POST(endpoint); // Enviando a requisição
 if (httpCode > 0) { // Verificando o retorno da requisição
 String retorno = http.getString(); // obtendo o retorno da requisição
