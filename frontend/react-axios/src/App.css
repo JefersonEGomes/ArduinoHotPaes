@@ -1,0 +1,14 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #f3f5f4;
+  min-height: 70vh;
+  color: rgba(223, 90, 1, 0.945);
+}
+
+.App-link {
+  color: #0f6d86;
+  font-size: 14px;
+}
